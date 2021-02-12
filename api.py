@@ -9,7 +9,21 @@ def index():
     return "VM teste"
 
 
-@api.route("/save_usbs")
-def save_usbs():
-    usbs = libvirt.list_usbs()
-    return "VM teste"
+@api.route("/list-running-vms")
+def list_running_vms():
+    return ""
+
+
+@api.route("/save_current_usbs")
+def save_current_usbs():
+    return ""
+
+
+@api.route("/list-new-usbs")
+def list_new_usbs():
+    return ""
+
+
+@api.route("/attach-usb")
+def attach_usb():
+    return ""
