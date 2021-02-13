@@ -13,4 +13,4 @@ TEMPFOLDER = Path(tempfile.gettempdir())
 
 files_folder = app_dir / "files"
 
-dongle_vendors = ["1d6b:0003"]
+dongle_ids = ["1d6b:0003"]

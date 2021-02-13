@@ -1,27 +1,21 @@
 from subprocess import check_output
 from typing import List
 import re
-
-class VM:
-    def __init__(self):
-        self.id = None
-        self.name = None
-        self.state = None
-
-    def __repr__(self):
-        return self.name
+import config
+from uuid import uuid4
+from blkinfo import BlkDiskInfo
 
 
-
-def list_running_vms() -> List[VM]:
+def list_running_vms():
     res = check_output(["virsh", "list"], universal_newlines=True).strip()
     items = [line.split() for line in res.split("\n")]
     ret = []
     for item in items[2:]:
-        obj = VM()
-        obj.id = item[0]
-        obj.name = item[1]
-        obj.state = item[2]
+        obj = {
+            'id': item[0],
+            'name': item[1],
+            'state': item[2],
+        }
         ret.append(obj)
     return ret
 
@@ -42,3 +36,46 @@ def list_usbs():
             }
             devs.append(dev)
     return devs
+
+
+def list_disks():
+    myblkd = BlkDiskInfo()
+    # filters = {
+    #     'tran': 'usb'
+    # }
+    disks = myblkd.get_disks()
+    disks = [{
+        'vendor': disk['vendor'],
+        'label': disk['label'],
+        'model': disk['model'],
+        'name': disk['name'],
+        'kname': disk['kname'],
+    } for disk in disks]
+    return disks
+
+
+def attach_detach_usb(id, vm, action="attach"):
+    vendor, prod = id.split(":")
+    xml = f"""<hostdev mode='subsystem' type='usb' managed='yes'>
+<source>
+<vendor id='0x{vendor}'/>
+<product id='0x{prod}'/>
+</source>
+</hostdev>"""
+    random_id = uuid4()
+    tempfile = config.TEMPFOLDER / f"{random_id}.xml"
+    tempfile.write_text(xml)
+    try:
+        res = check_output(
+            ['virsh', f"{action}-device", vm, '--file', str(tempfile)])
+    finally:
+        tempfile.unlink()
+    return res
+
+
+def attach_detach_disk(name, vm, action="attach"):
+    args = ['virsh', f"{action}-disk", vm, f"/dev/{name}"]
+    if action == "attach":
+        args.append("vdc")
+    res = check_output(args)
+    return res
