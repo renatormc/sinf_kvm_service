@@ -1,9 +1,17 @@
-from subprocess import check_output
+from subprocess import check_output, CalledProcessError, PIPE, Popen
 from typing import List
 import re
 import config
 from uuid import uuid4
 from blkinfo import BlkDiskInfo
+
+
+def execute(args):
+    p = Popen(args, stdout=PIPE, stderr=PIPE)
+    std_out, std_err = p.communicate()
+    if p.returncode != 0:
+        return std_out, std_err
+    return std_out, None
 
 
 def list_running_vms():
@@ -66,8 +74,8 @@ def attach_detach_usb(id, vm, action="attach"):
     tempfile = config.TEMPFOLDER / f"{random_id}.xml"
     tempfile.write_text(xml)
     try:
-        res = check_output(
-            ['virsh', f"{action}-device", vm, '--file', str(tempfile)])
+        res = execute(['virsh', f"{action}-device",
+                       vm, '--file', str(tempfile)])
     finally:
         tempfile.unlink()
     return res
@@ -77,5 +85,4 @@ def attach_detach_disk(name, vm, action="attach"):
     args = ['virsh', f"{action}-disk", vm, f"/dev/{name}"]
     if action == "attach":
         args.append("vdc")
-    res = check_output(args)
-    return res
+    return execute(args)

@@ -22,7 +22,7 @@ def get_user_claims():
             parts = request.headers.get('Authorization').split()
             if parts[0] != "Bearer":
                 raise jwt.exceptions.DecodeError()
-            g.user_claims = jwt.decode(parts[1], config.sinfkey, algorithms=['HS256'])
+            g.user_claims = jwt.decode(parts[1], config.SECRET_KEY, algorithms=['HS256'])
         except (jwt.exceptions.DecodeError, IndexError, AttributeError, jwt.exceptions.ExpiredSignatureError): 
             g.user_claims = None
     return g.user_claims
