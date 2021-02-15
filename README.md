@@ -96,7 +96,7 @@ METHOD: GET
 https://10.129.3.84:8002/attach-usb/<id>/<vm>
 ```
 
-sendo: 
+sendo,   
 id: o identificador do dispositivo no formato vendor:product  
 vm: O nome da máquina virtual na qual o dispositivo deverá ser conectado  
 
@@ -108,7 +108,7 @@ METHOD: GET
 https://10.129.3.84:8002/detach-usb/<id>/<vm>
 ```
 
-sendo: 
+sendo,  
 id: o identificador do dispositivo no formato vendor:product  
 vm: O nome da máquina virtual na qual o dispositivo deverá ser desconectado  
 
@@ -119,7 +119,7 @@ METHOD: GET
 https://10.129.3.84:8002/attach-disk/<name>/<vm>
 ```
 
-sendo: 
+sendo,  
 name: O nome do disco a ser conectado na vm (sdc, sdd, sdb, etc)  
 vm: O nome da máquina virtual na qual o disco deverá ser conectado  
 
@@ -130,6 +130,6 @@ METHOD: GET
 https://10.129.3.84:8002/dettach-disk/<name>/<vm>
 ```
 
-sendo: 
+sendo,  
 name: O nome do disco (sdc, sdd, sdb, etc)  
 vm: O nome da máquina virtual da qual o disco deverá ser desconectado  
