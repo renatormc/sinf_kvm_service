@@ -50,6 +50,13 @@ sudo systemctl enable sinf_kvm_service
 
 ```
 
+Liberar porta no firewall
+
+```bash
+sudo ufw allow 8002
+```
+
+
 # Autenticação
 
 Para a autentição é necessário passar o token jwt no cabeçalho de nome Authorization precedido da palavra Bearer  
