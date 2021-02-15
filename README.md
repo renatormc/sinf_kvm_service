@@ -49,3 +49,13 @@ sudo systemctl start sinf_kvm_service
 sudo systemctl enable sinf_kvm_service
 
 ```
+
+# Autenticação
+
+Para a autentição é necessário passar o token jwt no cabeçalho de nome Authorization precedido da palavra Bearer  
+
+ex: 
+
+```
+Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJydW5vIiwiaWF0IjoxNTE2MjM5MDIyfQ.YDN0wJHLzyzmqdwycv4wgh-RMBwQR4C_0uehWmo_77ZrAB46YnPYmzJJ2Lb36GyyDXDwRP9Bt759hcVmUiGWEg
+```
