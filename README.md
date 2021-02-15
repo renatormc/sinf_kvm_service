@@ -59,3 +59,77 @@ ex:
 ```
 Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkJydW5vIiwiaWF0IjoxNTE2MjM5MDIyfQ.YDN0wJHLzyzmqdwycv4wgh-RMBwQR4C_0uehWmo_77ZrAB46YnPYmzJJ2Lb36GyyDXDwRP9Bt759hcVmUiGWEg
 ```
+
+# Endpoints
+
+## Listar vms rodando no servidor
+
+```
+METHOD: GET
+https://10.129.3.84:8002/list-running-vms
+```
+
+## Fazer snapshot dos dispositivos já conectados
+
+
+```
+METHOD: GET
+https://10.129.3.84:8002/snapshot-devices
+```
+
+Será retornado um id que identificará o snapshot
+
+
+## Verificar quais novos dispositivos foram conectados após o snapshot
+
+```
+METHOD: GET
+https://10.129.3.84:8002/new-devices/<id>
+```
+sendo:
+id: o id que identifica o snapshot
+
+## Conectar usb
+
+```
+METHOD: GET
+https://10.129.3.84:8002/attach-usb/<id>/<vm>
+```
+
+sendo: 
+id: o identificador do dispositivo no formato vendor:product
+vm: O nome da máquina virtual na qual o dispositivo deverá ser conectado
+
+
+## Desconectar usb
+
+```
+METHOD: GET
+https://10.129.3.84:8002/detach-usb/<id>/<vm>
+```
+
+sendo: 
+id: o identificador do dispositivo no formato vendor:product
+vm: O nome da máquina virtual na qual o dispositivo deverá ser desconectado
+
+## Conectar disco
+
+```
+METHOD: GET
+https://10.129.3.84:8002/attach-disk/<name>/<vm>
+```
+
+sendo: 
+name: O nome do disco a ser conectado na vm (sdc, sdd, sdb, etc)
+vm: O nome da máquina virtual na qual o disco deverá ser conectado
+
+## Desconectar disco
+
+```
+METHOD: GET
+https://10.129.3.84:8002/dettach-disk/<name>/<vm>
+```
+
+sendo: 
+name: O nome do disco (sdc, sdd, sdb, etc)
+vm: O nome da máquina virtual da qual o disco deverá ser desconectado
