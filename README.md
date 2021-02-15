@@ -77,7 +77,7 @@ METHOD: GET
 https://10.129.3.84:8002/snapshot-devices
 ```
 
-Será retornado um id que identificará o snapshot
+Será retornado um id que identificará o snapshot  
 
 
 ## Verificar quais novos dispositivos foram conectados após o snapshot
@@ -87,7 +87,7 @@ METHOD: GET
 https://10.129.3.84:8002/new-devices/<id>
 ```
 sendo:
-id: o id que identifica o snapshot
+id: o id que identifica o snapshot  
 
 ## Conectar usb
 
@@ -97,8 +97,8 @@ https://10.129.3.84:8002/attach-usb/<id>/<vm>
 ```
 
 sendo: 
-id: o identificador do dispositivo no formato vendor:product
-vm: O nome da máquina virtual na qual o dispositivo deverá ser conectado
+id: o identificador do dispositivo no formato vendor:product  
+vm: O nome da máquina virtual na qual o dispositivo deverá ser conectado  
 
 
 ## Desconectar usb
@@ -109,8 +109,8 @@ https://10.129.3.84:8002/detach-usb/<id>/<vm>
 ```
 
 sendo: 
-id: o identificador do dispositivo no formato vendor:product
-vm: O nome da máquina virtual na qual o dispositivo deverá ser desconectado
+id: o identificador do dispositivo no formato vendor:product  
+vm: O nome da máquina virtual na qual o dispositivo deverá ser desconectado  
 
 ## Conectar disco
 
@@ -120,8 +120,8 @@ https://10.129.3.84:8002/attach-disk/<name>/<vm>
 ```
 
 sendo: 
-name: O nome do disco a ser conectado na vm (sdc, sdd, sdb, etc)
-vm: O nome da máquina virtual na qual o disco deverá ser conectado
+name: O nome do disco a ser conectado na vm (sdc, sdd, sdb, etc)  
+vm: O nome da máquina virtual na qual o disco deverá ser conectado  
 
 ## Desconectar disco
 
@@ -131,5 +131,5 @@ https://10.129.3.84:8002/dettach-disk/<name>/<vm>
 ```
 
 sendo: 
-name: O nome do disco (sdc, sdd, sdb, etc)
-vm: O nome da máquina virtual da qual o disco deverá ser desconectado
+name: O nome do disco (sdc, sdd, sdb, etc)  
+vm: O nome da máquina virtual da qual o disco deverá ser desconectado  
