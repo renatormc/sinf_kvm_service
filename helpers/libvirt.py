@@ -15,7 +15,7 @@ def execute(args):
 
 
 def list_running_vms():
-    res = check_output(["virsh", "list"], universal_newlines=True).strip()
+    res = check_output(["virsh","-c", "qemu:///system", "list"], universal_newlines=True).strip()
     items = [line.split() for line in res.split("\n")]
     ret = []
     for item in items[2:]:
@@ -74,7 +74,7 @@ def attach_detach_usb(id, vm, action="attach"):
     tempfile = config.TEMPFOLDER / f"{random_id}.xml"
     tempfile.write_text(xml)
     try:
-        res = execute(['virsh', f"{action}-device",
+        res = execute(['virsh', '-c,', 'qemu:///system', f"{action}-device",
                        vm, '--file', str(tempfile)])
     finally:
         tempfile.unlink()
@@ -82,7 +82,7 @@ def attach_detach_usb(id, vm, action="attach"):
 
 
 def attach_detach_disk(name, vm, action="attach"):
-    args = ['virsh', f"{action}-disk", vm, f"/dev/{name}"]
+    args = ['virsh', '-c', 'qemu:///system', f"{action}-disk", vm, f"/dev/{name}"]
     if action == "attach":
         args.append("vdc")
     return execute(args)

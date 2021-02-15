@@ -1,0 +1,82 @@
+{
+    "disks": [
+        {
+            "vendor": "ATA TOSHIBA_MQ01ABD0",
+            "label": "",
+            "model": "ATA TOSHIBA_MQ01ABD0",
+            "name": "sda",
+            "kname": "sda"
+        },
+        {
+            "vendor": "ATA TOSHIBA_MQ01ABD0",
+            "label": "",
+            "model": "ATA TOSHIBA_MQ01ABD0",
+            "name": "sdc",
+            "kname": "sdc"
+        },
+        {
+            "vendor": "SanDisk Cruzer_Blade",
+            "label": "",
+            "model": "SanDisk Cruzer_Blade",
+            "name": "sdd",
+            "kname": "sdd"
+        },
+        {
+            "vendor": " WDS100T3X0C-00SJG0",
+            "label": "",
+            "model": " WDS100T3X0C-00SJG0",
+            "name": "nvme0n1",
+            "kname": "nvme0n1"
+        }
+    ],
+    "usbs": [
+        {
+            "bus": "004",
+            "device": "001",
+            "id": "1d6b:0003",
+            "name": "Linux Foundation 3.0 root hub"
+        },
+        {
+            "bus": "003",
+            "device": "003",
+            "id": "0781:5567",
+            "name": "SanDisk Corp. Cruzer Blade"
+        },
+        {
+            "bus": "003",
+            "device": "001",
+            "id": "1d6b:0002",
+            "name": "Linux Foundation 2.0 root hub"
+        },
+        {
+            "bus": "002",
+            "device": "001",
+            "id": "1d6b:0003",
+            "name": "Linux Foundation 3.0 root hub"
+        },
+        {
+            "bus": "001",
+            "device": "004",
+            "id": "0bda:8172",
+            "name": "Realtek Semiconductor Corp. RTL8191SU 802.11n WLAN Adapter"
+        },
+        {
+            "bus": "001",
+            "device": "003",
+            "id": "05e3:0610",
+            "name": "Genesys Logic, Inc. 4-port hub"
+        },
+        {
+            "bus": "001",
+            "device": "002",
+            "id": "0b05:1939",
+            "name": "ASUSTek Computer, Inc. AURA LED Controller"
+        },
+        {
+            "bus": "001",
+            "device": "001",
+            "id": "1d6b:0002",
+            "name": "Linux Foundation 2.0 root hub"
+        }
+    ]
+}
