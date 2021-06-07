@@ -7,6 +7,7 @@ from blkinfo import BlkDiskInfo
 
 
 def execute(args):
+    print(" ".join(args))
     p = Popen(args, stdout=PIPE, stderr=PIPE)
     std_out, std_err = p.communicate()
     if p.returncode != 0:
@@ -70,11 +71,12 @@ def attach_detach_usb(id, vm, action="attach"):
 <product id='0x{prod}'/>
 </source>
 </hostdev>"""
+    print(xml)
     random_id = uuid4()
     tempfile = config.TEMPFOLDER / f"{random_id}.xml"
     tempfile.write_text(xml)
     try:
-        res = execute(['virsh', '-c,', 'qemu:///system', f"{action}-device",
+        res = execute(['virsh', '-c', 'qemu:///system', f"{action}-device",
                        vm, '--file', str(tempfile)])
     finally:
         tempfile.unlink()

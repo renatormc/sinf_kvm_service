@@ -1,0 +1,114 @@
+{
+    "disks": [
+        {
+            "vendor": "ATA MTFDDAK256MAY-1AH1ZABHA",
+            "label": "",
+            "model": "ATA MTFDDAK256MAY-1AH1ZABHA",
+            "name": "sda",
+            "kname": "sda"
+        },
+        {
+            "vendor": "ATA Hitachi_HDS723030ALA640",
+            "label": "",
+            "model": "ATA Hitachi_HDS723030ALA640",
+            "name": "sdb",
+            "kname": "sdb"
+        },
+        {
+            "vendor": "ATA ST2000DM006-2DM164",
+            "label": "",
+            "model": "ATA ST2000DM006-2DM164",
+            "name": "sdc",
+            "kname": "sdc"
+        },
+        {
+            "vendor": "ATA ST500DM002-1BD142",
+            "label": "",
+            "model": "ATA ST500DM002-1BD142",
+            "name": "sdd",
+            "kname": "sdd"
+        },
+        {
+            "vendor": "SanDisk Cruzer_Blade",
+            "label": "",
+            "model": "SanDisk Cruzer_Blade",
+            "name": "sde",
+            "kname": "sde"
+        },
+        {
+            "vendor": "hp hp_BD-RE_BH40N",
+            "label": "",
+            "model": "hp hp_BD-RE_BH40N",
+            "name": "sr0",
+            "kname": "sr0"
+        }
+    ],
+    "usbs": [
+        {
+            "bus": "002",
+            "device": "006",
+            "id": "05e3:0610",
+            "name": "Genesys Logic, Inc. Hub"
+        },
+        {
+            "bus": "002",
+            "device": "005",
+            "id": "05e3:0610",
+            "name": "Genesys Logic, Inc. Hub"
+        },
+        {
+            "bus": "002",
+            "device": "004",
+            "id": "03f0:104a",
+            "name": "HP, Inc "
+        },
+        {
+            "bus": "002",
+            "device": "003",
+            "id": "03f0:1198",
+            "name": "HP, Inc HID-compliant mouse"
+        },
+        {
+            "bus": "002",
+            "device": "002",
+            "id": "8087:0024",
+            "name": "Intel Corp. Integrated Rate Matching Hub"
+        },
+        {
+            "bus": "002",
+            "device": "001",
+            "id": "1d6b:0002",
+            "name": "Linux Foundation 2.0 root hub"
+        },
+        {
+            "bus": "004",
+            "device": "001",
+            "id": "1d6b:0003",
+            "name": "Linux Foundation 3.0 root hub"
+        },
+        {
+            "bus": "003",
+            "device": "002",
+            "id": "0781:5567",
+            "name": "SanDisk Corp. Cruzer Blade"
+        },
+        {
+            "bus": "003",
+            "device": "001",
+            "id": "1d6b:0002",
+            "name": "Linux Foundation 2.0 root hub"
+        },
+        {
+            "bus": "001",
+            "device": "002",
+            "id": "8087:0024",
+            "name": "Intel Corp. Integrated Rate Matching Hub"
+        },
+        {
+            "bus": "001",
+            "device": "001",
+            "id": "1d6b:0002",
+            "name": "Linux Foundation 2.0 root hub"
+        }
+    ]
+}
