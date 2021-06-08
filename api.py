@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request, abort, make_response
 from helpers import libvirt, api_helpers
-from auth import jwt_required
+from mippae_libs.auth import jwt_required
 
 api = Blueprint('api', __name__)
 

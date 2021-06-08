@@ -16,7 +16,7 @@ virtualenv venv --python=python=3
 
 
 ```bash
-SINFKEY=chave_secreta
+SECRETKEY=chave_secreta
 ```
 
 ## Criar o arquivo que define o serviço

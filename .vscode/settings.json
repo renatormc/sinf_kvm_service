@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/home/renato/.local/share/virtualenvs/sinf_kvm_service-2zQtcTJW/bin/python",
+    "python.pythonPath": ".venv/bin/python",
     "workbench.colorTheme": "Solarized Dark"
 }
