@@ -1,4 +1,6 @@
 {
     "python.pythonPath": ".venv/bin/python",
-    "workbench.colorTheme": "Solarized Dark"
+    "workbench.colorTheme": "Solarized Dark",
+    "python.linting.mypyEnabled": true,
+    "python.linting.enabled": true
 }

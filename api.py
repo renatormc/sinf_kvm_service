@@ -29,14 +29,14 @@ def save_devices():
 
 @api.route("/new-devices/<id>")
 @jwt_required
-def new_devices(id):
+def new_devices(id: str):
     devs = api_helpers.list_new_devices(id)
     return jsonify(devs)
 
 
 @api.route("/attach-usb/<id>/<vm>")
 @jwt_required
-def attach_usb(id, vm):
+def attach_usb(id: str, vm: str):
     std_out, std_err = libvirt.attach_detach_usb(id, vm, action="attach")
     if std_err:
         abort(jsonify(message=std_err.decode()))
@@ -45,7 +45,7 @@ def attach_usb(id, vm):
 
 @api.route("/detach-usb/<id>/<vm>")
 @jwt_required
-def detach_usb(id, vm):
+def detach_usb(id: str, vm: str):
     std_out, std_err = libvirt.attach_detach_usb(id, vm, action="detach")
     if std_err:
         abort(jsonify(message=std_err.decode()))
@@ -54,7 +54,7 @@ def detach_usb(id, vm):
 
 @api.route("/attach-disk/<name>/<vm>")
 @jwt_required
-def attach_disk(name, vm):
+def attach_disk(name: str, vm: str):
     std_out, std_err = libvirt.attach_detach_disk(name, vm, action="attach")
     if std_err:
         abort(jsonify(message=std_err.decode()))
@@ -63,7 +63,7 @@ def attach_disk(name, vm):
 
 @api.route("/detach-disk/<name>/<vm>")
 @jwt_required
-def detach_disk(name, vm):
+def detach_disk(name: str, vm: str):
     std_out, std_err = libvirt.attach_detach_disk(name, vm, action="detach")
     if std_err:
         abort(jsonify(message=std_err.decode()))

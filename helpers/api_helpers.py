@@ -1,12 +1,14 @@
+from typing import TypedDict
 from helpers import libvirt
 import config
 import json
 from uuid import uuid4
 
-def snapshot_current_devices():
+
+def snapshot_current_devices() -> str:
     disks = libvirt.list_disks()
     usbs = libvirt.list_usbs()
-    random_id = uuid4()
+    random_id = str(uuid4())
     path = config.files_folder / f"{random_id}.json"
     data = {
         'disks': disks,
@@ -17,7 +19,12 @@ def snapshot_current_devices():
     return random_id
 
 
-def list_new_devices(random_id):
+class NewDevicesType(TypedDict):
+    disks: list[libvirt.DiskType]
+    usb: list[libvirt.UsbType]
+
+
+def list_new_devices(random_id: str) -> NewDevicesType:
     path = config.files_folder / f"{random_id}.json"
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
@@ -38,3 +45,5 @@ def list_new_devices(random_id):
         'disks': new_disks,
         'usb': new_usbs
     }
+
+

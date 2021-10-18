@@ -1,53 +1,75 @@
 from subprocess import check_output, CalledProcessError, PIPE, Popen
-from typing import List
+from typing import List, TypedDict
 import re
 import config
 from uuid import uuid4
 from blkinfo import BlkDiskInfo
 
 
-def execute(args):
+def execute(args: list[str]) -> tuple[bytes, bytes]:
     print(" ".join(args))
     p = Popen(args, stdout=PIPE, stderr=PIPE)
     std_out, std_err = p.communicate()
     if p.returncode != 0:
         return std_out, std_err
-    return std_out, None
+    return std_out, std_err
 
 
-def list_running_vms():
-    res = check_output(["virsh","-c", "qemu:///system", "list"], universal_newlines=True).strip()
+class VmType(TypedDict):
+    id: str
+    name: str
+    state: str
+
+
+def list_running_vms() -> list[VmType]:
+    res = check_output(["virsh", "-c", "qemu:///system",
+                        "list"], universal_newlines=True).strip()
     items = [line.split() for line in res.split("\n")]
     ret = []
     for item in items[2:]:
-        obj = {
+        obj: VmType = {
             'id': item[0],
             'name': item[1],
-            'state': item[2],
+            'state': item[2]
         }
         ret.append(obj)
     return ret
 
 
-def list_usbs():
+class UsbType(TypedDict):
+    bus: str
+    device: str
+    id: str
+    name: str
+
+
+def list_usbs() -> list[UsbType]:
     res = check_output(["lsusb"], universal_newlines=True).strip()
     lines = res.split("\n")
-    devs = []
+    devs: list[UsbType] = []
     reg = re.compile(r'Bus (\d+) Device (\d+): ID (\S+) (.*)')
     for line in lines:
-        res = reg.search(line)
-        if res:
-            dev = {
-                'bus': res.group(1),
-                'device': res.group(2),
-                'id': res.group(3),
-                'name': res.group(4),
+        resreg = reg.search(line)
+        if resreg:
+            dev: UsbType = {
+                'bus': resreg.group(1) or "",
+                'device': resreg.group(2) or "",
+                'id': resreg.group(3) or "",
+                'name': resreg.group(4) or "",
             }
             devs.append(dev)
     return devs
 
 
-def list_disks():
+class DiskType(TypedDict):
+    vendor: str
+    label: str
+    model: str
+    name: str
+    kname: str
+
+
+def list_disks() -> list[DiskType]:
     myblkd = BlkDiskInfo()
     # filters = {
     #     'tran': 'usb'
@@ -63,7 +85,7 @@ def list_disks():
     return disks
 
 
-def attach_detach_usb(id, vm, action="attach"):
+def attach_detach_usb(id: str, vm: str, action: str = "attach"):
     vendor, prod = id.split(":")
     xml = f"""<hostdev mode='subsystem' type='usb' managed='yes'>
 <source>
@@ -83,8 +105,9 @@ def attach_detach_usb(id, vm, action="attach"):
     return res
 
 
-def attach_detach_disk(name, vm, action="attach"):
-    args = ['virsh', '-c', 'qemu:///system', f"{action}-disk", vm, f"/dev/{name}"]
+def attach_detach_disk(name: str, vm: str, action="attach"):
+    args = ['virsh', '-c', 'qemu:///system',
+            f"{action}-disk", vm, f"/dev/{name}"]
     if action == "attach":
         args.append("vdc")
     return execute(args)
