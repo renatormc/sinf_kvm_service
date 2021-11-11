@@ -1,0 +1,12 @@
+@baseurl = http://localhost:8002/
+@token = token
+###
+GET {{baseurl}}/test
+
+###
+GET {{baseurl}}/list-running-vms
+content-type: application/json
+Authorization: {{token}}
+
+
+

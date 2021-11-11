@@ -7,7 +7,7 @@ load_dotenv()
 
 app_dir = Path(os.path.dirname(os.path.realpath(__file__)))
 
-SECRETKEY: str = os.getenv("SECRETKEY") or ""
+TOKEN: str = os.getenv("TOKEN") or ""
 
 TEMPFOLDER: Path = Path(tempfile.gettempdir())
 

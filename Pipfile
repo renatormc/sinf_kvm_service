@@ -50,6 +50,7 @@ PyJWT = "==1.7.1"
 Werkzeug = "==1.0.1"
 mippae-libs = {editable = true, git = "https://github.com/renatormc/mippae_libs"}
 flask-cors = "*"
+python-jwt = "*"
 
 [dev-packages]
 
