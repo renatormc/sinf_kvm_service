@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, abort, make_response
+from flask import Blueprint, json, jsonify, request, abort, make_response
 from helpers import libvirt, api_helpers
 from auth import auth_required
 
@@ -16,6 +16,20 @@ def test():
 def list_running_vms():
     vms = libvirt.list_running_vms()
     return jsonify(vms)
+
+
+@api.route("/usbs")
+@auth_required
+def usbs():
+    usbs = libvirt.list_usbs(filter_fixed=True)
+    return jsonify(usbs)
+
+
+@api.route("/attached-usbs/<vm>")
+@auth_required
+def attached_usbs(vm: str):
+    usbs = libvirt.get_attached_usbs(vm)
+    return jsonify(usbs)
 
 
 @api.route("/snapshot-devices")

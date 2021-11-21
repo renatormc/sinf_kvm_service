@@ -13,4 +13,4 @@ TEMPFOLDER: Path = Path(tempfile.gettempdir())
 
 files_folder = app_dir / "files"
 
-dongle_ids: list[str] = ["1d6b:0003"]
+fixed_usbs_filepath = app_dir / "fixed_usbs.json"

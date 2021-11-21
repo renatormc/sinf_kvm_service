@@ -8,5 +8,26 @@ GET {{baseurl}}/list-running-vms
 content-type: application/json
 Authorization: {{token}}
 
+###
+GET {{baseurl}}/usbs
+content-type: application/json
+Authorization: {{token}}
+
+
+###
+GET {{baseurl}}/attach-usb/13fe:4300/win11
+content-type: application/json
+Authorization: {{token}}
+
+###
+GET {{baseurl}}/detach-usb/13fe:4300/win11
+content-type: application/json
+Authorization: {{token}}
+
+###
+GET {{baseurl}}/attached-usbs/win11
+content-type: application/json
+Authorization: {{token}}
+
 
 

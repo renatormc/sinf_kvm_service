@@ -1,9 +1,33 @@
 from subprocess import check_output, CalledProcessError, PIPE, Popen
+import subprocess
 from typing import List, TypedDict
 import re
 import config
 from uuid import uuid4
 from blkinfo import BlkDiskInfo
+import json
+import xml.etree.ElementTree as ET
+
+
+class UsbType(TypedDict):
+    bus: str
+    device: str
+    id: str
+    name: str
+
+
+class VmType(TypedDict):
+    id: str
+    name: str
+    state: str
+
+
+class DiskType(TypedDict):
+    vendor: str
+    label: str
+    model: str
+    name: str
+    kname: str
 
 
 def execute(args: list[str]) -> tuple[bytes, bytes]:
@@ -15,10 +39,12 @@ def execute(args: list[str]) -> tuple[bytes, bytes]:
     return std_out, std_err
 
 
-class VmType(TypedDict):
-    id: str
-    name: str
-    state: str
+def read_fixed_usbs() -> list[UsbType]:
+    path = config.fixed_usbs_filepath
+    data: list[UsbType] = []
+    with path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
 
 
 def list_running_vms() -> list[VmType]:
@@ -36,14 +62,8 @@ def list_running_vms() -> list[VmType]:
     return ret
 
 
-class UsbType(TypedDict):
-    bus: str
-    device: str
-    id: str
-    name: str
-
-
-def list_usbs() -> list[UsbType]:
+def list_usbs(filter_fixed=False) -> list[UsbType]:
+    fixed_usbs = read_fixed_usbs() if filter_fixed else []
     res = check_output(["lsusb"], universal_newlines=True).strip()
     lines = res.split("\n")
     devs: list[UsbType] = []
@@ -57,16 +77,16 @@ def list_usbs() -> list[UsbType]:
                 'id': resreg.group(3) or "",
                 'name': resreg.group(4) or "",
             }
-            devs.append(dev)
+            if not filter_fixed or not dev in fixed_usbs:
+                devs.append(dev)
     return devs
 
 
-class DiskType(TypedDict):
-    vendor: str
-    label: str
-    model: str
-    name: str
-    kname: str
+def save_fixed_usb():
+    usbs = list_usbs(filter_fixed=False)
+    path = config.fixed_usbs_filepath
+    with path.open("w", encoding="utf-8") as f:
+        f.write(json.dumps(usbs, indent=4, ensure_ascii=False))
 
 
 def list_disks() -> list[DiskType]:
@@ -93,7 +113,6 @@ def attach_detach_usb(id: str, vm: str, action: str = "attach"):
 <product id='0x{prod}'/>
 </source>
 </hostdev>"""
-    print(xml)
     random_id = uuid4()
     tempfile = config.TEMPFOLDER / f"{random_id}.xml"
     tempfile.write_text(xml)
@@ -111,3 +130,23 @@ def attach_detach_disk(name: str, vm: str, action="attach"):
     if action == "attach":
         args.append("vdc")
     return execute(args)
+
+
+def get_attached_usbs(vm: str) -> list[UsbType]:
+    out = subprocess.getoutput(f"virsh -c qemu:///system dumpxml {vm}")
+    root = ET.fromstring(out)
+    usbs: list[UsbType] = []
+    for hostdev in root.findall(".//hostdev"):
+        if hostdev.attrib['type'] == "usb":
+            source = hostdev.find(".//source")
+            vendor = source.find(".//vendor").attrib['id'][2:]
+            product = source.find(".//product").attrib['id'][2:]
+            id = f"{vendor}:{product}"
+            usb: UsbType = {
+                "id": id,
+                "bus": "",
+                "device": "",
+                "name": ""
+            }
+            usbs.append(usb)
+    return usbs

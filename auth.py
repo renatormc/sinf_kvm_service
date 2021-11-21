@@ -1,5 +1,4 @@
 from flask import g, request, abort, make_response, jsonify
-import jwt
 from functools import wraps
 from datetime import date, datetime
 import config
