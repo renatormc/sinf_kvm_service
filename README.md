@@ -140,3 +140,9 @@ https://10.129.3.84:8002/dettach-disk/<name>/<vm>
 sendo,  
 name: O nome do disco (sdc, sdd, sdb, etc)  
 vm: O nome da máquina virtual da qual o disco deverá ser desconectado  
+
+# .env 
+```
+TOKEN=token
+PORT=8000
+```

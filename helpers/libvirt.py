@@ -132,21 +132,19 @@ def attach_detach_disk(name: str, vm: str, action="attach"):
     return execute(args)
 
 
-def get_attached_usbs(vm: str) -> list[UsbType]:
+def get_attached_usbs(vm: str) -> list[str]:
     out = subprocess.getoutput(f"virsh -c qemu:///system dumpxml {vm}")
     root = ET.fromstring(out)
-    usbs: list[UsbType] = []
+    usbs: list[str] = []
     for hostdev in root.findall(".//hostdev"):
         if hostdev.attrib['type'] == "usb":
             source = hostdev.find(".//source")
+            if source is None:
+                continue
             vendor = source.find(".//vendor").attrib['id'][2:]
+            if vendor is None:
+                continue
             product = source.find(".//product").attrib['id'][2:]
             id = f"{vendor}:{product}"
-            usb: UsbType = {
-                "id": id,
-                "bus": "",
-                "device": "",
-                "name": ""
-            }
-            usbs.append(usb)
+            usbs.append(id)
     return usbs

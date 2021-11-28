@@ -8,6 +8,7 @@ flask = "*"
 python-dotenv = "*"
 blkinfo = "*"
 click = "*"
+gunicorn = "*"
 
 [dev-packages]
 
