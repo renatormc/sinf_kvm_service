@@ -16,7 +16,8 @@ virtualenv venv --python=python=3
 
 
 ```bash
-SECRETKEY=chave_secreta
+TOKEN=your_password
+PORT=8002
 ```
 
 ## Criar o arquivo que define o serviço
