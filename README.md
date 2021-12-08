@@ -37,7 +37,7 @@ After=network.target
 User=sinf
 Group=sinf
 WorkingDirectory=/home/sinf/apps/sinf_kvm_service
-ExecStart=/home/sinf/apps/sinf_kvm_service/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8002 app:app
+ExecStart=/home/renato/.pyenv/shims/pipenv run gunicorn --workers 3 --bind 0.0.0.0:8002 app:app
 
 [Install]
 WantedBy=multi-user.target
