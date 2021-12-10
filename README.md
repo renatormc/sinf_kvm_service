@@ -34,9 +34,9 @@ Description=Sinf KVM Service
 After=network.target
 
 [Service]
-User=sinf
-Group=sinf
-WorkingDirectory=/home/sinf/apps/sinf_kvm_service
+User=renato
+Group=renato
+WorkingDirectory=/home/renato/src/sinf_kvm_service
 ExecStart=/home/renato/.pyenv/shims/pipenv run gunicorn --workers 3 --bind 0.0.0.0:8002 app:app
 
 [Install]
@@ -46,15 +46,8 @@ WantedBy=multi-user.target
 Iniciar e habilitar o serviço
 
 ```bash
-sudo systemctl start sinf_kvm_service
-sudo systemctl enable sinf_kvm_service
+sudo systemctl enable sinf_kvm_service --now
 
-```
-
-Liberar porta no firewall
-
-```bash
-sudo ufw allow 8002
 ```
 
 

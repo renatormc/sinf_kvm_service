@@ -7,5 +7,3 @@ app = Flask(__name__)
 # CORS(app)
 app.config.from_object('config')
 app.register_blueprint(api)
-
-    
