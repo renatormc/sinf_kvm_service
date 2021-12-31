@@ -1,0 +1,8 @@
+{
+    "password": "mypassword",
+    "port": 8002,
+    "exclude_usb": [
+    ],
+    "exclude_disk": [
+    ]
+}

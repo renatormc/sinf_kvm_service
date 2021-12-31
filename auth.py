@@ -18,6 +18,6 @@ def check_token() -> bool:
         value = request.headers.get(
             'Authorization') or request.cookies.get('Authorization')
         print(value)
-        return value == config.TOKEN
+        return value == config.local_config['password']
     except (AttributeError):
         return False

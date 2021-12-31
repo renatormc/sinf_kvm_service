@@ -12,14 +12,8 @@ sudo apt install virtualenv python3-pip python3.8-dev
 virtualenv venv --python=python=3
 ```
 
-## Criar arquivo .env e colocar o seguinte conteúdo
+## Renomear o arquivo config-example.json para config.json
 
-
-```bash
-TOKEN=your_password
-PORT=8002
-DISKS=sdb,sdc
-```
 
 ## Criar o arquivo que define o serviço
 

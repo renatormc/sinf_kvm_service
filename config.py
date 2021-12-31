@@ -1,19 +1,16 @@
 import os
 from pathlib import Path
 import tempfile
-from dotenv import load_dotenv
-load_dotenv()
+import json
 
 app_dir = Path(os.path.dirname(os.path.realpath(__file__)))
+config_file = app_dir / "config.json"
 
-TOKEN: str = os.getenv("TOKEN") or ""
-PORT: str = os.getenv("PORT") or ""
+local_config = {}
+with config_file.open("r", encoding="utf-8") as f:
+    local_config = json.load(f)
 
 TEMPFOLDER: Path = Path(tempfile.gettempdir())
 
 files_folder = app_dir / "files"
 
-fixed_usbs_filepath = app_dir / "fixed_usbs.json"
-
-aux = os.getenv("DISKS") or ""
-disks = [item.strip() for item in aux.split(",")]

@@ -5,3 +5,4 @@ venv
 .vscode
 files
 fixed_usbs.json
+config.json

@@ -39,5 +39,10 @@ GET {{baseurl}}/attached-usbs/win11
 content-type: application/json
 Authorization: {{token}}
 
+###
+GET {{baseurl}}/attached-disks/win10
+content-type: application/json
+Authorization: {{token}}
+
 
 

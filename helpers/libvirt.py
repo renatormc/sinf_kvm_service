@@ -62,8 +62,7 @@ def list_running_vms() -> list[VmType]:
     return ret
 
 
-def list_usbs(filter_fixed=False) -> list[UsbType]:
-    fixed_usbs = read_fixed_usbs() if filter_fixed else []
+def list_usbs(filter_excluded=False) -> list[UsbType]:
     res = check_output(["lsusb"], universal_newlines=True).strip()
     lines = res.split("\n")
     devs: list[UsbType] = []
@@ -77,23 +76,13 @@ def list_usbs(filter_fixed=False) -> list[UsbType]:
                 'id': resreg.group(3) or "",
                 'name': resreg.group(4) or "",
             }
-            if not filter_fixed or not dev in fixed_usbs:
+            if not filter_excluded or not dev in config.local_config['exclude_usb']:
                 devs.append(dev)
     return devs
 
 
-def save_fixed_usb():
-    usbs = list_usbs(filter_fixed=False)
-    path = config.fixed_usbs_filepath
-    with path.open("w", encoding="utf-8") as f:
-        f.write(json.dumps(usbs, indent=4, ensure_ascii=False))
-
-
-def list_disks() -> list[DiskType]:
+def list_disks(filter_excluded=False) -> list[DiskType]:
     myblkd = BlkDiskInfo()
-    # filters = {
-    #     'tran': 'usb'
-    # }
     disks = myblkd.get_disks()
     disks = [{
         'vendor': disk['vendor'],
@@ -102,7 +91,20 @@ def list_disks() -> list[DiskType]:
         'name': disk['name'],
         'kname': disk['kname'],
     } for disk in disks]
+    if filter_excluded:
+        disks = [d for d in disks if d not in config.local_config['exclude_disk']]
     return disks
+
+
+def save_exclude_devices():
+    usbs = list_usbs(filter_excluded=False)
+    disks = list_disks(filter_excluded=False)
+    with config.config_file.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    data['exclude_usb'] = usbs
+    data['exclude_disk'] = disks
+    with config.config_file.open("w", encoding="utf-8") as f:
+        f.write(json.dumps(data, indent=4, ensure_ascii=False))
 
 
 def attach_detach_usb(id: str, vm: str, action: str = "attach"):
@@ -148,3 +150,17 @@ def get_attached_usbs(vm: str) -> list[str]:
             id = f"{vendor}:{product}"
             usbs.append(id)
     return usbs
+
+
+def get_attached_disks(vm: str) -> list[str]:
+    out = subprocess.getoutput(f"virsh -c qemu:///system dumpxml {vm}")
+    root = ET.fromstring(out)
+    disks: list[str] = []
+    for disk in root.findall(".//disk"):
+        if disk.attrib['type'] == "block":
+            source = disk.find(".//source")
+            if source is None:
+                continue
+            dev = source.attrib['dev'].split("/")[-1]
+            disks.append(dev)
+    return disks

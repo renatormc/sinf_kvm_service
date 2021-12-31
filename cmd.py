@@ -8,9 +8,9 @@ def cli(ctx):
     pass
 
 
-@cli.command("save-fixed-usb")
-def save_fixed_usb():
-    libvirt.save_fixed_usb()
+@cli.command("save-current-devices")
+def save_current_devices():
+    libvirt.save_exclude_devices()
 
 
 if __name__ == '__main__':

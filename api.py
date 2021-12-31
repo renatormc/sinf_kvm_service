@@ -22,20 +22,27 @@ def list_running_vms():
 @api.route("/usbs")
 @auth_required
 def usbs():
-    usbs = libvirt.list_usbs(filter_fixed=True)
+    usbs = libvirt.list_usbs(filter_excluded=True)
     return jsonify(usbs)
 
 
 @api.route("/disks")
 @auth_required
 def disks():
-    return jsonify(config.disks)
+    disks = libvirt.list_disks(filter_excluded=True)
+    return jsonify(disks)
 
 
 @api.route("/attached-usbs/<vm>")
 @auth_required
 def attached_usbs(vm: str):
     usbs = libvirt.get_attached_usbs(vm)
+    return jsonify(usbs)
+
+@api.route("/attached-disks/<vm>")
+@auth_required
+def attached_disks(vm: str):
+    usbs = libvirt.get_attached_disks(vm)
     return jsonify(usbs)
 
 
