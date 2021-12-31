@@ -18,6 +18,7 @@ virtualenv venv --python=python=3
 ```bash
 TOKEN=your_password
 PORT=8002
+DISKS=sdb,sdc
 ```
 
 ## Criar o arquivo que define o serviço

@@ -1,5 +1,5 @@
-@baseurl = http://localhost:8000/
-@token = token
+@baseurl = http://localhost:8002/
+@token = HN#u{{,~x>m2FD7[
 ###
 GET {{baseurl}}/test
 
@@ -13,6 +13,16 @@ GET {{baseurl}}/usbs
 content-type: application/json
 Authorization: {{token}}
 
+###
+GET {{baseurl}}/disks
+content-type: application/json
+Authorization: {{token}}
+
+
+###
+GET {{baseurl}}/attach-disk/sdb/win10
+content-type: application/json
+Authorization: {{token}}
 
 ###
 GET {{baseurl}}/attach-usb/13fe:4300/win11

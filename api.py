@@ -1,6 +1,7 @@
-from flask import Blueprint, json, jsonify, request, abort, make_response
+from flask import Blueprint, jsonify, request, abort, make_response
 from helpers import libvirt, api_helpers
 from auth import auth_required
+import config
 
 api = Blueprint('api', __name__)
 
@@ -23,6 +24,12 @@ def list_running_vms():
 def usbs():
     usbs = libvirt.list_usbs(filter_fixed=True)
     return jsonify(usbs)
+
+
+@api.route("/disks")
+@auth_required
+def disks():
+    return jsonify(config.disks)
 
 
 @api.route("/attached-usbs/<vm>")

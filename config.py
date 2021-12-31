@@ -14,3 +14,6 @@ TEMPFOLDER: Path = Path(tempfile.gettempdir())
 files_folder = app_dir / "files"
 
 fixed_usbs_filepath = app_dir / "fixed_usbs.json"
+
+aux = os.getenv("DISKS") or ""
+disks = [item.strip() for item in aux.split(",")]
