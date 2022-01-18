@@ -38,6 +38,24 @@ ExecStart=/home/renato/.pyenv/shims/pipenv run gunicorn --workers 3 --bind 0.0.0
 WantedBy=multi-user.target
 ```
 
+Para usar com interface gráfica apenas
+```
+Unit]
+Description=Sinf KVM Service
+After=graphical.target
+
+[Service]
+Type=simple
+User=renato
+Group=renato
+Environment=DISPLAY=:1
+WorkingDirectory=/home/renato/src/sinf_kvm_service
+ExecStart=/home/renato/.pyenv/shims/pipenv run gunicorn --workers 3 --bind 0.0.0.0:8002 app:app
+
+[Install]
+WantedBy=graphical.target
+```
+
 Iniciar e habilitar o serviço
 
 ```bash
