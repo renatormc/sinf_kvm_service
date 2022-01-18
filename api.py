@@ -96,3 +96,11 @@ def detach_disk(name: str, vm: str):
     if std_err:
         abort(jsonify(message=std_err.decode()))
     return jsonify(message=std_out.decode())
+
+
+
+@api.route("/set-desktop/<int:number>")
+@auth_required
+def set_desktop(number: int):
+    api_helpers.set_desktop(number)
+    return jsonify({"msg": "ok"})

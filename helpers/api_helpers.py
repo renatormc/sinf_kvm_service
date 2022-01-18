@@ -1,3 +1,4 @@
+import subprocess
 from typing import TypedDict
 from helpers import libvirt
 import config
@@ -46,4 +47,7 @@ def list_new_devices(random_id: str) -> NewDevicesType:
         'usb': new_usbs
     }
 
+
+def set_desktop(number: int):
+    subprocess.check_output(['xdotool', 'set_desktop', str(number)])
 

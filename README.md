@@ -135,3 +135,9 @@ vm: O nome da máquina virtual da qual o disco deverá ser desconectado
 TOKEN=token
 PORT=8000
 ```
+
+# Dependencies
+
+```
+sudo apt installxdotool
+```

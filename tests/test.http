@@ -45,4 +45,10 @@ content-type: application/json
 Authorization: {{token}}
 
 
+###
+GET {{baseurl}}/set-desktop/1
+content-type: application/json
+Authorization: {{token}}
+
+
 
